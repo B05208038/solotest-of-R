@@ -19,3 +19,8 @@ git config --global user.email "YOUR EMAIL ADDRESS"
 git add "檔案名"
 or 
 git add .       全部檔案
+
+
+
+讓遠端與本機同步:pull
+

@@ -1,0 +1,21 @@
+ctrl + l :清空
+mkdir a_new_folder
+cd a_new_folder
+touch(建立)hello_world.R
+ls
+-----------------------------------------------
+git 資訊設定
+告訴git帳戶名稱等
+
+確認存在
+git config --list   
+告訴 github 資訊
+git config --global user.name "YOUR NAME"  
+git config --global user.email "YOUR EMAIL ADDRESS" 
+
+上傳
+
+
+git add "檔案名"
+or 
+git add .       全部檔案

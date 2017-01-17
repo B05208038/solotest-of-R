@@ -9,5 +9,38 @@ dim(函數名)[索引值位置]	求位置
 summary(函數名)		總結
 
 
-
+class() 求其資料類型
 plot() 繪製散佈圖
+
+hist(函數名$類型, break = 數字)
+
+繪製標準常態分佈與均勻分布
+runif() 函數可以幫你產生 0 到 1之間均勻分配的隨機數
+rnorm() 函數可以幫你產生標準常態分配的隨機數
+n = 100
+par(mfrow = c(2, 1)) # 建立一個 1x2 的網格畫布
+hist(runif(n), main = paste("Distribution of", n, "uniformly distributed variables")) # 試著增加隨機數的個數 n
+hist(rnorm(n), main = paste("Distribution of", n, "normally distributed variables")) # 試著增加隨機數的個數 n
+
+
+paste {base}	R Documentation
+Concatenate Strings
+Description
+Concatenate vectors after converting to character.
+
+
+boxplot() 繪製盒鬚圖
+par(mfrow = c(1, 2))
+boxplot(cars$speed, main = "Distribution of speed variable")
+boxplot(cars$dist, main = "Distribution of dist variable")
+
+
+factor(mtcars$gear)換成因數向量
+summary(factor(mtcars$gear)) 算個自數量
+
+
+字轉橫向的?
+
+不只能呈現 count
+vehicle_names <- row.names(mtcars)
+barplot(mtcars$hp, names = vehicle_names, main = "Horse power for each vehicles", xlab = "Horse power", ylab = "Vehicles", horiz = TRUE)

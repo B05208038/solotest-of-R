@@ -1,0 +1,13 @@
+data()   ㄣいノㄣ
+
+head(ㄧ计, n = XL)   head ㄧ计肚繷碭掸芠代
+tail(ㄧ计, n = XL)   tail ㄧ计肚碭掸戈
+dim(ㄧ计)       禗ン逆
+nrow(ㄧ计)	ン戈秖
+ncol(ㄧ计)	ン逆计
+dim(ㄧ计)[ま竚]	―竚
+summary(ㄧ计)		羆挡
+
+
+
+plot() 酶籹床瓜

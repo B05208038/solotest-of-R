@@ -1,0 +1,139 @@
+factors 應用
+Description
+
+The function factor is used to encode a vector as a factor (the terms ‘category’ and ‘enumerated type’ are also used for factors). If argument ordered is TRUE, the factor levels are assumed to be ordered. For compatibility with S there is also a function ordered.
+
+is.factor, is.ordered, as.factor and as.ordered are the membership and coercion functions for these classes.
+
+Usage
+
+factor(x = character(), levels, labels = levels,
+       exclude = NA, ordered = is.ordered(x), nmax = NA)
+
+ordered(x, ...)
+
+is.factor(x)
+is.ordered(x)
+
+as.factor(x)
+as.ordered(x)
+
+addNA(x, ifany = FALSE)
+Arguments
+
+x	
+a vector of data, usually taking a small number of distinct values.
+
+levels	
+an optional vector of the values (as character strings) that x might have taken. The default is the unique set of values taken by as.character(x), sorted into increasing order of x. Note that this set can be specified as smaller than sort(unique(x)).
+
+labels	
+either an optional character vector of labels for the levels (in the same order as levels after removing those in exclude), or a character string of length 1.
+
+exclude	
+a vector of values to be excluded when forming the set of levels. This should be of the same type as x, and will be coerced if necessary.
+
+ordered	
+logical flag to determine if the levels should be regarded as ordered (in the order given).
+
+nmax	
+an upper bound on the number of levels; see ‘Details’.
+
+...	
+(in ordered(.)): any of the above, apart from ordered itself.
+
+ifany	
+(only add an NA level if it is used, i.e. if any(is.na(x)).
+
+
+
+
+
+
+
+產出矩陣
+?matrix
+Description
+
+matrix creates a matrix from the given set of values.
+
+as.matrix attempts to turn its argument into a matrix.
+
+is.matrix tests if its argument is a (strict) matrix.
+
+Usage
+
+matrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE,
+       dimnames = NULL)
+
+as.matrix(x, ...)
+## S3 method for class 'data.frame'
+as.matrix(x, rownames.force = NA, ...)
+
+is.matrix(x)
+Arguments
+
+data	
+an optional data vector (including a list or expression vector). Non-atomic classed R objects are coerced by as.vector and all attributes discarded.
+
+nrow	
+the desired number of rows.
+
+ncol	
+the desired number of columns.
+
+byrow	
+logical. If FALSE (the default) the matrix is filled by columns, otherwise the matrix is filled by rows.
+
+dimnames	
+A dimnames attribute for the matrix: NULL or a list of length 2 giving the row and column names respectively. An empty list is treated as NULL, and a list of length one as row names. The list can be named, and the list names will be used as names for the dimensions.
+
+x	
+an R object.
+
+...	
+additional arguments to be passed to or from methods.
+
+rownames.force	
+logical indicating if the resulting matrix should have character (rather than NULL) rownames. The default, NA, uses NULL rownames if the data frame has ‘automatic’ row.names or for a zero-row data frame.
+
+
+
+diag-->for confusion matrics
+Description
+
+Extract or replace the diagonal of a matrix, or construct a diagonal matrix.
+
+Usage
+
+diag(x = 1, nrow, ncol)
+diag(x) <- value
+Arguments
+
+x	
+a matrix, vector or 1D array, or missing.
+
+nrow, ncol	
+Optional dimensions for the result when x is not a matrix.
+
+value	
+either a single value or a vector of length equal to that of the current diagonal. Should be of a mode which can be coerced to that of x.
+
+Details
+
+
+
+diag has four distinct usages:診斷情況
+
+x is a matrix, when it extracts the diagonal.
+
+x is missing and nrow is specified, it returns an identity matrix.
+
+x is a scalar (length-one vector) and the only argument, it returns a square identity matrix of size given by the scalar.
+
+x is a numeric vector, either of length at least 2 or there were further arguments. This returns a matrix with the given diagonal and zero off-diagonal entries.
+
+It is an error to specify nrow or ncol in the first case.
+
+
+資料框應用

@@ -289,3 +289,40 @@ Levels: 娜美 蒙其D魯夫 賓什莫克香吉士 羅羅亞索隆
 > one_piece_df[one_piece_df$name=="娜美",]
   name is_female age
 3 娜美      TRUE  20
+> # 建立一個清單 my_list
+  > char_vector <- c("I", "Love", "R")
+> my_vector <- 1:8
+> my_matrix <- matrix(my_vector, nrow = 2, ncol = 4)
+> name <- c("蒙其D魯夫", "羅羅亞索隆", "娜美", "賓什莫克香吉士")
+> is_female <- c(FALSE, FALSE, TRUE, FALSE)
+> age <- c(19, 21, 20, 21)
+> one_piece_df <- data.frame(name, is_female, age)
+> my_list <- list(char_vector, my_matrix, one_piece_df)
+> my_list # 看看長什麼樣子
+[[1]]
+[1] "I"    "Love" "R"   
+
+[[2]]
+[,1] [,2] [,3] [,4]
+[1,]    1    3    5    7
+[2,]    2    4    6    8
+
+[[3]]
+name is_female age
+1      蒙其D魯夫     FALSE  19
+2     羅羅亞索隆     FALSE  21
+3           娜美      TRUE  20
+4 賓什莫克香吉士     FALSE  21
+
+> my_list[1]
+[[1]]
+[1] "I"    "Love" "R"   
+
+> my_list[[1]]
+[1] "I"    "Love" "R"   
+> my_list[[2]][2, 2]
+[1] 4
+> my_list[[3]]$name
+[1] 蒙其D魯夫      羅羅亞索隆     娜美           賓什莫克香吉士
+Levels: 娜美 蒙其D魯夫 賓什莫克香吉士 羅羅亞索隆
+> 

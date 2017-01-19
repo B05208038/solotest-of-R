@@ -1,0 +1,84 @@
+---
+title: "Untitled"
+author: "OwenYEh"
+date: "2017年1月19日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+##標題一
+
+這是依據在標題一底下的**粗體**文字
+
+##標題二
+
+這是一句再標題二底下的*鞋體*文字
+
+##標題三
+
+常用玩具資料列表 練習
+
+- cars
+
+- iris
+
+- mtcars
+
+- mpg(from ggplot2)
+
+常見田徑賽跑分類
+
+- 短距離
+  - 100公尺
+  - 200公尺
+  -  500公尺
+- 中距離
+  -  1200公尺
+  -  三千公尺
+  -  五千公尺
+- 長距離
+  -  一萬公尺
+  -  半馬
+  -  全馬
+
+##程使碼區塊
+
+我們可以把程式碼寫在描述中，像是`head(EuStockMarkets)`這叫做**Inline code**
+另外還有一種寫法叫做 **code trunk**
+
+
+```{r message=FALSE}
+#不顯示程式碼
+library(plotly)
+static_gg <- ggplot(mpg, aes(x = class)) +
+  geom_bar(aes(fill = drv))
+ggplotly(static_gg)
+```
+---
+> Ralph Waldo Emerson : We have conquered the power, so we have the strength
+
+##轉換型別函數
+
+|函數名稱|功用|
+|--------|----|
+|`as.numeric()`|轉換成 numeric|
+|`as.logical()`|轉換成 logical|
+|`as.character()`|轉換成 character|
+
+##納入圖片
+![what does R looks like when it's correctly used:](http://www.migflug.com/jetflights/wp-content/uploads/2015/03/reditt-com-mig-25-foxbat.jpg)
+
+## 參考聯結
+[R Mark Down](http://rmarkdown.rstudio.com/index.html)

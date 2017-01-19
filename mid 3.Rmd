@@ -1,0 +1,106 @@
+---
+title: "midterm hw 3"
+author: "OwenYeh"
+date: "2017年1月19日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+##資料概觀壹
+我使用 'stackloss'資料集，資訊如下:
+```{r}
+str(stackloss)
+summary(stackloss)
+```
+##散布圖
+利用ggplot2 繪畫的散布圖
+```{r echo = FALSE, message=FALSE}
+library(plotly)
+library(ggplot2)
+static_gg00<-ggplot(stackloss, aes(x = Air.Flow, y = Water.Temp, color = stack.loss)) +
+  geom_point()+
+  ggtitle("stack loss vs the position of the environment") +
+  xlab("Air Flow") +
+  ylab("Water Temperature")
+ggplotly(static_gg00)
+
+```
+
+
+
+
+
+
+
+
+
+
+##資料概觀貳
+我使用 'pressure'資料集，資訊如下:
+```{r}
+str(pressure)
+summary(pressure)
+```
+##點線圖
+利用ggplot2 繪畫的點線圖
+```{r echo = FALSE, message=FALSE}
+library(ggplot2)
+library(plotly)
+static_gg01<-ggplot(pressure, aes(x = temperature, y = pressure)) + 
+  geom_point() +
+  geom_line()
+
+ggplotly(static_gg01)
+```
+
+
+
+
+
+##資料概觀參
+
+```{r echo = FALSE, message=FALSE}
+library(ggplot2)
+library(plotly)
+```
+
+我使用 'mpg'資料集，資訊如下:
+```{r}
+str(mpg)
+summary(mpg)
+```
+##長條圖
+這是一個用'ggplotly()' 加入互動性的長條圖
+
+```{r}
+library(plotly)
+static_gg <- ggplot(mpg, aes(x = class)) +
+  geom_bar(aes(fill = drv))
+ggplotly(static_gg)
+```
+
+##資料概觀肆
+我使用 'InsectSprays'資料集，資訊如下:
+```{r}
+str(InsectSprays)
+summary(InsectSprays)
+```
+##盒鬚圖
+利用ggplot2 繪畫的盒鬚圖
+```{r echo = FALSE, message=FALSE}
+library(plotly)
+library(ggplot2)
+static_gg1<-ggplot(InsectSprays, aes(x = spray, y = count)) +
+  geom_boxplot() +
+    ggtitle("the quantity of bugs vesus different kind of sprays")
+ggplotly(static_gg1)
+```
+
+
+
+
+> Ralph Waldo Emerson : We have conquered the power, so we have the strength
+
+![what message does R handle and created for you when it's correctly used looks like:](http://www.migflug.com/jetflights/wp-content/uploads/2015/03/reditt-com-mig-25-foxbat.jpg)

@@ -125,15 +125,6 @@ facet_wrap(~ color)
 ggplotly(static_ggx)
 ```
 
-
-
-> Ralph Waldo Emerson : We have conquered the power, so we have the strength
-
-![what message does R handle and created for you when it's correctly used looks like:](http://www.migflug.com/jetflights/wp-content/uploads/2015/03/reditt-com-mig-25-foxbat.jpg)
-
-
-
-
 > Ralph Waldo Emerson : We have conquered the power, so we have the strength
 
 ![what message does R handle and created for you when it's correctly used looks like:](http://www.migflug.com/jetflights/wp-content/uploads/2015/03/reditt-com-mig-25-foxbat.jpg)

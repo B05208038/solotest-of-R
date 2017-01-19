@@ -1,31 +1,21 @@
 ---
 title: "midterm hw 3"
 author: "OwenYeh"
-date: "2017å¹´1æœˆ19æ—¥"
+date: "2017¦~1¤ë19¤é"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
----
-title: "midterm hw 3"
-author: "OwenYeh"
-date: "20170119î£™"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-##è³‡æ–™æ¦‚è§€å£¹
-æˆ‘ä½¿ç”¨ 'stackloss'è³‡æ–™é›†ï¼Œè³‡è¨Šå¦‚ä¸‹:
+##¸ê®Æ·§Æ[³ü
+§Ú¨Ï¥Î 'stackloss'¸ê®Æ¶°¡A¸ê°T¦p¤U:
 ```{r}
 str(stackloss)
 summary(stackloss)
 ```
-##æ•£å¸ƒåœ–
-åˆ©ç”¨ggplot2 ç¹ªç•«çš„æ•£å¸ƒåœ–
+##´²¥¬¹Ï
+§Q¥Îggplot2 Ã¸µeªº´²¥¬¹Ï
 ```{r echo = FALSE, message=FALSE}
 library(plotly)
 library(ggplot2)
@@ -47,14 +37,14 @@ ggplotly(static_gg00)
 
 
 
-##è³‡æ–™æ¦‚è§€è²³
-æˆ‘ä½¿ç”¨ 'pressure'è³‡æ–™é›†ï¼Œè³‡è¨Šå¦‚ä¸‹:
+##¸ê®Æ·§Æ[¶L
+§Ú¨Ï¥Î 'pressure'¸ê®Æ¶°¡A¸ê°T¦p¤U:
 ```{r}
 str(pressure)
 summary(pressure)
 ```
-##é»ç·šåœ–
-åˆ©ç”¨ggplot2 ç¹ªç•«çš„é»ç·šåœ–
+##ÂI½u¹Ï
+§Q¥Îggplot2 Ã¸µeªºÂI½u¹Ï
 ```{r echo = FALSE, message=FALSE}
 library(ggplot2)
 library(plotly)
@@ -69,20 +59,20 @@ ggplotly(static_gg01)
 
 
 
-##è³‡æ–™æ¦‚è§€åƒ
+##¸ê®Æ·§Æ[°Ñ
 
 ```{r echo = FALSE, message=FALSE}
 library(ggplot2)
 library(plotly)
 ```
 
-æˆ‘ä½¿ç”¨ 'mpg'è³‡æ–™é›†ï¼Œè³‡è¨Šå¦‚ä¸‹:
+§Ú¨Ï¥Î 'mpg'¸ê®Æ¶°¡A¸ê°T¦p¤U:
 ```{r}
 str(mpg)
 summary(mpg)
 ```
-##é•·æ¢åœ–
-é€™æ˜¯ä¸€å€‹ç”¨'ggplotly()' åŠ å…¥äº’å‹•æ€§çš„é•·æ¢åœ–
+##ªø±ø¹Ï
+³o¬O¤@­Ó¥Î'ggplotly()' ¥[¤J¤¬°Ê©Êªºªø±ø¹Ï
 
 ```{r}
 library(plotly)
@@ -91,14 +81,14 @@ static_gg <- ggplot(mpg, aes(x = class)) +
 ggplotly(static_gg)
 ```
 
-##è³‡æ–™æ¦‚è§€è‚†
-æˆ‘ä½¿ç”¨ 'InsectSprays'è³‡æ–™é›†ï¼Œè³‡è¨Šå¦‚ä¸‹:
+##¸ê®Æ·§Æ[¸v
+§Ú¨Ï¥Î 'InsectSprays'¸ê®Æ¶°¡A¸ê°T¦p¤U:
 ```{r}
 str(InsectSprays)
 summary(InsectSprays)
 ```
-##ç›’é¬šåœ–
-åˆ©ç”¨ggplot2 ç¹ªç•«çš„ç›’é¬šåœ–
+##²°Å½¹Ï
+§Q¥Îggplot2 Ã¸µeªº²°Å½¹Ï
 ```{r echo = FALSE, message=FALSE}
 library(plotly)
 library(ggplot2)
@@ -108,14 +98,14 @@ static_gg1<-ggplot(InsectSprays, aes(x = spray, y = count)) +
 ggplotly(static_gg1)
 ``` 
 
-##è³‡æ–™æ¦‚è§€ä¼
-æˆ‘ä½¿ç”¨ 'diamonds'è³‡æ–™é›†ï¼Œè³‡è¨Šå¦‚ä¸‹:ï“€?î¿—??:
+##¸ê®Æ·§Æ[¥î
+§Ú¨Ï¥Î 'diamonds'¸ê®Æ¶°¡A¸ê°T¦p¤U:Šå?‚ä??:
 ```{r}
 str(diamonds)
 summary(diamonds)
 ```
-##ç›´æ–¹åœ–
-åˆ©ç”¨ggplot2 ç¹ªç•«çš„ç›´æ–¹åœ–
+##ª½¤è¹Ï
+§Q¥Îggplot2 Ã¸µeªºª½¤è¹Ï
 ```{r echo = FALSE, message=FALSE}
 library(plotly)
 library(ggplot2)

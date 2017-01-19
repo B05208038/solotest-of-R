@@ -8,6 +8,16 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+---
+title: "midterm hw 3"
+author: "OwenYeh"
+date: "20170119"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 ##資料概觀壹
 我使用 'stackloss'資料集，資訊如下:
 ```{r}
@@ -96,7 +106,30 @@ static_gg1<-ggplot(InsectSprays, aes(x = spray, y = count)) +
   geom_boxplot() +
     ggtitle("the quantity of bugs vesus different kind of sprays")
 ggplotly(static_gg1)
+``` 
+
+##資料概觀伍
+我使用 'diamonds'資料集，資訊如下:???:
+```{r}
+str(diamonds)
+summary(diamonds)
 ```
+##直方圖
+利用ggplot2 繪畫的直方圖
+```{r echo = FALSE, message=FALSE}
+library(plotly)
+library(ggplot2)
+static_ggx<-ggplot(diamonds  , aes(x),color=color) +
+geom_histogram(binwidth = 0.5)+
+facet_wrap(~ color)
+ggplotly(static_ggx)
+```
+
+
+
+> Ralph Waldo Emerson : We have conquered the power, so we have the strength
+
+![what message does R handle and created for you when it's correctly used looks like:](http://www.migflug.com/jetflights/wp-content/uploads/2015/03/reditt-com-mig-25-foxbat.jpg)
 
 
 

@@ -137,4 +137,94 @@ name
 9             Brook
 
 
+> #轉換格式
+> #新增一個變數為生日的年月日，格式為 Date
+> #先算生日的年份，跟原本的月日結合，然後轉換格式
+  > birth_year
+[1] 1998 1996 1997 1998 1996 2000 1987 1981 1927
+> straw_hat_df$birthday
+[1] "05-05" "11-11" "07-03" "04-01" "03-02" "12-24" "02-06" "03-09" "04-03"
+> straw_hat_df$birthday <- as.chracter()
+Error: could not find function "as.chracter"
+> straw_hat_df$birthday <- as.character()
+Error in `$<-.data.frame`(`*tmp*`, "birthday", value = character(0)) : 
+  replacement has 0 rows, data has 9
+> straw_hat_df$birthday <- as.character(straw_hat_df$birthday)
+> paste(birth_year, straw_hat_df$birthday, sep="-")
+[1] "1998-05-05" "1996-11-11" "1997-07-03" "1998-04-01" "1996-03-02" "2000-12-24" "1987-02-06" "1981-03-09" "1927-04-03"
+> birth_date_chr <- paste(birth_year, straw_hat_df$birthday, sep="-")
+> class (birth_date_chr)
+[1] "character"
 
+
+
+#轉換字元
+> birth_date_chr
+[1] "1998-05-05" "1996-11-11" "1997-07-03" "1998-04-01" "1996-03-02" "2000-12-24" "1987-02-06" "1981-03-09" "1927-04-03"
+> as.Date(birth_date_chr)
+[1] "1998-05-05" "1996-11-11" "1997-07-03" "1998-04-01" "1996-03-02" "2000-12-24" "1987-02-06" "1981-03-09" "1927-04-03"
+> as.Date(birth_date_chr, format = "%y %m-%d")
+[1] NA NA NA NA NA NA NA NA NA
+> as.Date(birth_date_chr, format = "%y %m - %d")
+[1] NA NA NA NA NA NA NA NA NA
+> as.Date(birth_date_chr, format = "%B, %d, %y")
+[1] NA NA NA NA NA NA NA NA NA
+> this_year <- as.numeric(format(Sys.Date(), '%Y'))
+> birth_year <- this_year - straw_hat_df$age
+> birth_date_chr <- paste(birth_year, straw_hat_df$birthday, sep = "-")
+> straw_hat_df$birth_date <- as.Date(birth_date_chr)
+> str(straw_hat_df)
+'data.frame':  9 obs. of  8 variables:
+  $ name      : chr  "Monkey D. Luffy" "Roronoa Zoro" "Nami" "Usopp" ...
+$ gender    : Factor w/ 2 levels "Female","Male": 2 2 1 2 2 2 1 2 2
+$ occupation: chr  "Captain" "Swordsman" "Navigator" "Sniper" ...
+$ bounty    : num  5.00e+08 3.20e+08 6.60e+07 2.00e+08 1.77e+08 1.00e+02 1.30e+08 9.40e+07 8.30e+07
+$ age       : num  19 21 20 19 21 17 30 36 90
+$ birthday  : chr  "05-05" "11-11" "07-03" "04-01" ...
+$ height    : num  174 181 170 176 180 90 188 240 277
+$ birth_date: Date, format: "1998-05-05" "1996-11-11" "1997-07-03" "1998-04-01" ...
+
+
+
+#為什麼要學資料轉置
+#先看我們的原始寬表格
+#如果我們想要快速地畫在一個長條圖上畫兩組數據呢？
+load(url("https://storage.googleapis.com/r_rookies/straw_hat_df.RData"))
+straw_hat_wide_df <- straw_hat_df[, c("name", "age", "height")]
+View(straw_hat_wide_df)
+library(ggplot2)
+ggplot(straw_hat_wide_df, aes(x = factor(name), y = age)) + geom_bar(stat = "identity")
+
+
+
+
+#使用tool時須注意座標軸數值部分
+> ggplot(straw_hat_wide_df, aes(x = factor(name), y = height)) + geom_bar(stat = "identity")
+> straw_hat_long_df <- gather(straw_hat_wide_df, key = category, value = values, age, height)
+> ggplot(straw_hat_long_df, aes(x = factor(name), y = values, fill = category)) + geom_bar(stat = "identity", position = "dodge")
+> straw_hat_long_df <- gather(straw_hat_wide_df, key = category, value = values, age, height)
+> ggplot(straw_hat_long_df, aes(x = factor(name), y = values, fill = category)) + geom_bar(stat = "identity", position = "dodge")
+> 
+  
+  
+#連結資料框
+> ggplot(straw_hat_wide_df, aes(x = factor(name), y = height)) + geom_bar(stat = "identity")
+> straw_hat_long_df <- gather(straw_hat_wide_df, key = category, value = values, age, height)
+> ggplot(straw_hat_long_df, aes(x = factor(name), y = values, fill = category)) + geom_bar(stat = "identity", position = "dodge")
+> straw_hat_long_df <- gather(straw_hat_wide_df, key = category, value = values, age, height)
+> ggplot(straw_hat_long_df, aes(x = factor(name), y = values, fill = category)) + geom_bar(stat = "identity", position = "dodge")
+> load(url("https://storage.googleapis.com/r_rookies/straw_hat_devil_fruit.RData"))
+> View(straw_hat_devil_fruit)
+> #連結資料框:merge
+> merge(straw_hat_df, straw_hat_devil_fruit)
+name gender    occupation  bounty age birthday height         devil_fruit devil_fruit_type
+1             Brook   Male      Musician 8.3e+07  90    04-03    277 Revive-Revive Fruit        Paramecia
+2   Monkey D. Luffy   Male       Captain 5.0e+08  19    05-05    174       Gum-Gum Fruit        Paramecia
+3        Nico Robin Female Archaeologist 1.3e+08  30    02-06    188 Flower-Flower Fruit        Paramecia
+4 Tony Tony Chopper   Male        Doctor 1.0e+02  17    12-24     90   Human-Human Fruit             Zoan
+> straw_hat_df_merged<- merge(straw_hat_df, straw_hat_devil_fruit)
+> view(straw_hat_df_merged)
+Error: could not find function "view"
+> View(straw_hat_df_merged)
+
+sqlzoo net

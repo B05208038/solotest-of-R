@@ -78,7 +78,7 @@ unclass/skip objects of classes with no defined JSON mapping
 
 
 
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 substr
 Substrings of a Character Vector
@@ -138,6 +138,8 @@ The S4 version of substring<- ignores last; this version does not.
 These functions are often used with nchar to truncate a display. That does not really work (you want to limit the width, not the number of characters, so it would be better to use strtrim), but at least make sure you use the default nchar(type = "c").
 
 
+
+--------------------------------------------------------------------------------------------------------------------
 
 format()
 Encode in a Common Format
@@ -230,3 +232,391 @@ If x is a list, the result is a character vector obtained by applying format.def
 
 
 
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+
+?paste
+Concatenate Strings
+
+Description
+
+Concatenate vectors after converting to character.
+
+Usage
+
+paste (..., sep = " ", collapse = NULL)
+paste0(..., collapse = NULL)
+Arguments
+
+...	
+one or more R objects, to be converted to character vectors.
+
+sep	
+a character string to separate the terms. Not NA_character_.
+
+collapse	
+an optional character string to separate the results. Not NA_character_.
+
+Details
+
+paste converts its arguments (via as.character) to character strings, and concatenates them (separating them by the string given by sep). If the arguments are vectors, they are concatenated term-by-term to give a character vector result. Vector arguments are recycled as needed, with zero-length arguments being recycled to "".
+
+Note that paste() coerces NA_character_, the character missing value, to "NA" which may seem undesirable, e.g., when pasting two character vectors, or very desirable, e.g. in paste("the value of p is ", p).
+
+paste0(..., collapse) is equivalent to paste(..., sep = "", collapse), slightly more efficiently.
+
+If a value is specified for collapse, the values in the result are then concatenated into a single string, with the elements being separated by the value of collapse.
+
+Value
+
+A character vector of the concatenated values. This will be of length zero if all the objects are, unless collapse is non-NULL in which case it is a single empty string.
+
+If any input into an element of the result is in UTF-8 (and none are declared with encoding "bytes", (see Encoding), that element will be in UTF-8, otherwise in the current encoding in which case the encoding of the element is declared if the current locale is either Latin-1 or UTF-8, at least one of the corresponding inputs (including separators) had a declared encoding and all inputs were either ASCII or declared.
+
+If an input into an element is declared with encoding "bytes", no translation will be done of any of the elements and the resulting element will have encoding "bytes". If collapse is non-NULL, this applies also to the second, collapsing, phase, but some translation may have been done in pasting object together in the first phase.
+
+
+
+
+------------------------------------------------------------------------------------------------
+as.Date {base}	R Documentation
+Date Conversion Functions to and from Character
+
+Description
+
+Functions to convert between character representations and objects of class "Date" representing calendar dates.
+
+Usage
+
+as.Date(x, ...)
+## S3 method for class 'character'
+as.Date(x, format, ...)
+## S3 method for class 'numeric'
+as.Date(x, origin, ...)
+## S3 method for class 'POSIXct'
+as.Date(x, tz = "UTC", ...)
+
+## S3 method for class 'Date'
+format(x, ...)
+
+## S3 method for class 'Date'
+as.character(x, ...)
+Arguments
+
+x	
+An object to be converted.
+
+format	
+A character string. If not specified, it will try "%Y-%m-%d" then "%Y/%m/%d" on the first non-NA element, and give an error if neither works. Otherwise, the processing is via strptime
+
+origin	
+a Date object, or something which can be coerced by as.Date(origin, ...) to such an object.
+
+tz	
+a time zone name.
+
+...	
+Further arguments to be passed from or to other methods, including format for as.character and as.Date methods.
+
+Details
+
+The usual vector re-cycling rules are applied to x and format so the answer will be of length that of the longer of the vectors.
+
+Locale-specific conversions to and from character strings are used where appropriate and available. This affects the names of the days and months.
+
+The as.Date methods accept character strings, factors, logical NA and objects of classes "POSIXlt" and "POSIXct". (The last is converted to days by ignoring the time after midnight in the representation of the time in specified time zone, default UTC.) Also objects of class "date" (from package date) and "dates" (from package chron). Character strings are processed as far as necessary for the format specified: any trailing characters are ignored.
+
+as.Date will accept numeric data (the number of days since an epoch), but only if origin is supplied.
+
+The format and as.character methods ignore any fractional part of the date.
+
+Value
+
+The format and as.character methods return a character vector representing the date. NA dates are returned as NA_character_.
+
+The as.Date methods return an object of class "Date".
+
+Conversion from other Systems
+
+Most systems record dates internally as the number of days since some origin, but this is fraught with problems, including
+
+Is the origin day 0 or day 1? As the ¡¥Examples¡¦ show, Excel manages to use both choices for its two date systems.
+
+If the origin is far enough back, the designers may show their ignorance of calendar systems. For example, Excel's designer thought 1900 was a leap year (claiming to copy the error from earlier DOS spreadsheets), and Matlab's designer chose the non-existent date of ¡¥January 0, 0000¡¦ (there is no such day), not specifying the calendar. (There is such a year in the ¡¥Gregorian¡¦ calendar as used in ISO 8601:2004, but that does say that it is only to be used for years before 1582 with the agreement of the parties in information exchange.)
+
+The only safe procedure is to check the other systems values for known dates: reports on the Internet (including R-help) are more often wrong than right.
+
+Note
+
+The default formats follow the rules of the ISO 8601 international standard which expresses a day as "2001-02-03".
+
+If the date string does not specify the date completely, the returned answer may be system-specific. The most common behaviour is to assume that a missing year, month or day is the current one. If it specifies a date incorrectly, reliable implementations will give an error and the date is reported as NA. Unfortunately some common implementations (such as glibc) are unreliable and guess at the intended meaning.
+
+Years before 1CE (aka 1AD) will probably not be handled correctly.
+
+References
+
+International Organization for Standardization (2004, 1988, 1997, ...) ISO 8601. Data elements and interchange formats ¡V Information interchange ¡V Representation of dates and times. For links to versions available on-line see (at the time of writing) http://www.qsl.net/g1smd/isopdf.htm.
+
+See Also
+
+Date for details of the date class; locales to query or set a locale.
+
+Your system's help pages on strftime and strptime to see how to specify their formats. Windows users will find no help page for strptime: code based on glibc is used (with corrections), so all the format specifiers described here are supported, but with no alternative number representation nor era available in any locale.
+
+Examples
+
+## locale-specific version of the date
+format(Sys.Date(), "%a %b %d")
+
+## read in date info in format 'ddmmmyyyy'
+## This will give NA(s) in some locales; setting the C locale
+## as in the commented lines will overcome this on most systems.
+## lct <- Sys.getlocale("LC_TIME"); Sys.setlocale("LC_TIME", "C")
+x <- c("1jan1960", "2jan1960", "31mar1960", "30jul1960")
+z <- as.Date(x, "%d%b%Y")
+## Sys.setlocale("LC_TIME", lct)
+z
+
+## read in date/time info in format 'm/d/y'
+dates <- c("02/27/92", "02/27/92", "01/14/92", "02/28/92", "02/01/92")
+as.Date(dates, "%m/%d/%y")
+
+## date given as number of days since 1900-01-01 (a date in 1989)
+as.Date(32768, origin = "1900-01-01")
+## Excel is said to use 1900-01-01 as day 1 (Windows default) or
+## 1904-01-01 as day 0 (Mac default), but this is complicated by Excel
+## incorrectly treating 1900 as a leap year.
+## So for dates (post-1901) from Windows Excel
+as.Date(35981, origin = "1899-12-30") # 1998-07-05
+## and Mac Excel
+as.Date(34519, origin = "1904-01-01") # 1998-07-05
+## (these values come from http://support.microsoft.com/kb/214330)
+
+## Experiment shows that Matlab's origin is 719529 days before ours,
+## (it takes the non-existent 0000-01-01 as day 1)
+## so Matlab day 734373 can be imported as
+as.Date(734373, origin = "1970-01-01") - 719529 # 2010-08-23
+## (value from 
+## http://www.mathworks.de/de/help/matlab/matlab_prog/represent-date-and-times-in-MATLAB.html)
+
+## Time zone effect
+z <- ISOdate(2010, 04, 13, c(0,12)) # midnight and midday UTC
+as.Date(z) # in UTC
+## these time zone names are common
+as.Date(z, tz = "NZ")
+as.Date(z, tz = "HST") # Hawaii
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+spread {tidyr}	R Documentation
+Spread a key-value pair across multiple columns.
+
+Description
+
+Spread a key-value pair across multiple columns.
+
+Usage
+
+spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE,
+  sep = NULL)
+Arguments
+
+data	
+A data frame.
+
+key	
+The bare (unquoted) name of the column whose values will be used as column headings.
+
+value	
+The bare (unquoted) name of the column whose values will populate the cells.
+
+fill	
+If set, missing values will be replaced with this value. Note that there are two types of missingness in the input: explicit missing values (i.e. NA), and implicit missings, rows that simply aren't present. Both types of missing value will be replaced by fill.
+
+convert	
+If TRUE, type.convert with asis = TRUE will be run on each of the new columns. This is useful if the value column was a mix of variables that was coerced to a string. If the class of the value column was factor or date, note that will not be true of the new columns that are produced, which are coerced to character before type conversion.
+
+drop	
+If FALSE, will keep factor levels that don't appear in the data, filling in missing combinations with fill.
+
+sep	
+If NULL, the column names will be taken from the values of key variable. If non-NULL, the column names will be given by "<key_name><sep><key_value>".
+
+See Also
+
+spread_ for a version that uses regular evaluation and is suitable for programming with.
+
+Examples
+
+library(dplyr)
+stocks <- data.frame(
+  time = as.Date('2009-01-01') + 0:9,
+  X = rnorm(10, 0, 1),
+  Y = rnorm(10, 0, 2),
+  Z = rnorm(10, 0, 4)
+)
+stocksm <- stocks %>% gather(stock, price, -time)
+stocksm %>% spread(stock, price)
+stocksm %>% spread(time, price)
+
+# Spread and gather are complements
+df <- data.frame(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
+df %>% spread(x, y) %>% gather(x, y, a:b, na.rm = TRUE)
+
+# Use 'convert = TRUE' to produce variables of mixed type
+df <- data.frame(row = rep(c(1, 51), each = 3),
+                 var = c("Sepal.Length", "Species", "Species_num"),
+                 value = c(5.1, "setosa", 1, 7.0, "versicolor", 2))
+df %>% spread(var, value) %>% str
+df %>% spread(var, value, convert = TRUE) %>% str
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+merge {base}	R Documentation
+Merge Two Data Frames
+
+Description
+
+Merge two data frames by common columns or row names, or do other versions of database join operations.
+
+Usage
+
+merge(x, y, ...)
+
+## Default S3 method:
+merge(x, y, ...)
+
+## S3 method for class 'data.frame'
+merge(x, y, by = intersect(names(x), names(y)),
+      by.x = by, by.y = by, all = FALSE, all.x = all, all.y = all,
+      sort = TRUE, suffixes = c(".x",".y"),
+      incomparables = NULL, ...)
+Arguments
+
+x, y	
+data frames, or objects to be coerced to one.
+
+by, by.x, by.y	
+specifications of the columns used for merging. See ¡¥Details¡¦.
+
+all	
+logical; all = L is shorthand for all.x = L and all.y = L, where L is either TRUE or FALSE.
+
+all.x	
+logical; if TRUE, then extra rows will be added to the output, one for each row in x that has no matching row in y. These rows will have NAs in those columns that are usually filled with values from y. The default is FALSE, so that only rows with data from both x and y are included in the output.
+
+all.y	
+logical; analogous to all.x.
+
+sort	
+logical. Should the result be sorted on the by columns?
+
+suffixes	
+a character vector of length 2 specifying the suffixes to be used for making unique the names of columns in the result which not used for merging (appearing in by etc).
+
+incomparables	
+values which cannot be matched. See match. This is intended to be used for merging on one column, so these are incomparable values of that column.
+
+...	
+arguments to be passed to or from methods.
+
+Details
+
+merge is a generic function whose principal method is for data frames: the default method coerces its arguments to data frames and calls the "data.frame" method.
+
+By default the data frames are merged on the columns with names they both have, but separate specifications of the columns can be given by by.x and by.y. The rows in the two data frames that match on the specified columns are extracted, and joined together. If there is more than one match, all possible matches contribute one row each. For the precise meaning of ¡¥match¡¦, see match.
+
+Columns to merge on can be specified by name, number or by a logical vector: the name "row.names" or the number 0 specifies the row names. If specified by name it must correspond uniquely to a named column in the input.
+
+If by or both by.x and by.y are of length 0 (a length zero vector or NULL), the result, r, is the Cartesian product of x and y, i.e., dim(r) = c(nrow(x)*nrow(y), ncol(x) + ncol(y)).
+
+If all.x is true, all the non matching cases of x are appended to the result as well, with NA filled in the corresponding columns of y; analogously for all.y.
+
+If the columns in the data frames not used in merging have any common names, these have suffixes (".x" and ".y" by default) appended to try to make the names of the result unique. If this is not possible, an error is thrown.
+
+The complexity of the algorithm used is proportional to the length of the answer.
+
+In SQL database terminology, the default value of all = FALSE gives a natural join, a special case of an inner join. Specifying all.x = TRUE gives a left (outer) join, all.y = TRUE a right (outer) join, and both (all = TRUE a (full) outer join. DBMSes do not match NULL records, equivalent to incomparables = NA in R.
+
+Value
+
+A data frame. The rows are by default lexicographically sorted on the common columns, but for sort = FALSE are in an unspecified order. The columns are the common columns followed by the remaining columns in x and then those in y. If the matching involved row names, an extra character column called Row.names is added at the left, and in all cases the result has ¡¥automatic¡¦ row names.
+
+Note
+
+This is intended to work with data frames with vector-like columns: some aspects work with data frames containing matrices, but not all.
+
+Currently long vectors are not accepted for inputs, which are thus restricted to less than 2^31 rows. Prior to R 3.2.0 that restriction also applied to the result (and still does for 32-bit platforms).
+
+See Also
+
+data.frame, by, cbind.
+
+dendrogram for a class which has a merge method.
+
+Examples
+
+## use character columns of names to get sensible sort order
+authors <- data.frame(
+    surname = I(c("Tukey", "Venables", "Tierney", "Ripley", "McNeil")),
+    nationality = c("US", "Australia", "US", "UK", "Australia"),
+    deceased = c("yes", rep("no", 4)))
+books <- data.frame(
+    name = I(c("Tukey", "Venables", "Tierney",
+             "Ripley", "Ripley", "McNeil", "R Core")),
+    title = c("Exploratory Data Analysis",
+              "Modern Applied Statistics ...",
+              "LISP-STAT",
+              "Spatial Statistics", "Stochastic Simulation",
+              "Interactive Data Analysis",
+              "An Introduction to R"),
+    other.author = c(NA, "Ripley", NA, NA, NA, NA,
+                     "Venables & Smith"))
+
+(m1 <- merge(authors, books, by.x = "surname", by.y = "name"))
+(m2 <- merge(books, authors, by.x = "name", by.y = "surname"))
+stopifnot(as.character(m1[, 1]) == as.character(m2[, 1]),
+          all.equal(m1[, -1], m2[, -1][ names(m1)[-1] ]),
+          dim(merge(m1, m2, by = integer(0))) == c(36, 10))
+
+## "R core" is missing from authors and appears only here :
+merge(authors, books, by.x = "surname", by.y = "name", all = TRUE)
+
+## example of using 'incomparables'
+x <- data.frame(k1 = c(NA,NA,3,4,5), k2 = c(1,NA,NA,4,5), data = 1:5)
+y <- data.frame(k1 = c(NA,2,NA,4,5), k2 = c(NA,NA,3,4,5), data = 1:5)
+merge(x, y, by = c("k1","k2")) # NA's match
+merge(x, y, by = "k1") # NA's match, so 6 rows
+merge(x, y, by = "k2", incomparables = NA) # 2 rows
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sqlzoo net
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

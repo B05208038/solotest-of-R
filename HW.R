@@ -53,12 +53,14 @@ length(weights)
 
 
 #3. BMI
-my.BMI <- function(input_vector) {
+heights_and_weights<- as.matrix(heights_and_weights)
+my.BMI <- function(input_vector1,input_vector2) {
   my_BMI <- 0
-  for (i in input_vector) {
-    my_BMI <- heights/((weights/100)^2)
-    print(i)
-  }
+  for (i in input_vector1) {
+    my_BMI <- i[,2]/((i[,1]/100)^2)
+    print(i$heights, i$weights)
+    }
   return(my_BMI)
 }
-my.BMI(heights_and_weights[3])
+my.BMI(heights_and_weights[3,])
+heights_and_weights
